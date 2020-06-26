@@ -103,18 +103,15 @@ const routes = [
     { path: '', component: _welcome_welcome_component__WEBPACK_IMPORTED_MODULE_6__["WelcomeComponent"] },
     { path: 'pricing', component: _pricing_pricing_component__WEBPACK_IMPORTED_MODULE_7__["PricingComponent"] },
     { path: 'limits', component: _limits_limits_component__WEBPACK_IMPORTED_MODULE_9__["LimitsComponent"] },
-]; // sets up routes constant where you define your routes
+    { path: '**', redirectTo: '/' },
+];
 class AppModule {
 }
 AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]] });
 AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({ factory: function AppModule_Factory(t) { return new (t || AppModule)(); }, providers: [], imports: [[
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forRoot(routes, {
-            // useHash: true
-            }),
-            // NgxStripeModule
-            //   .forRoot('pk_test_51GwZIhASKhSlqpJrkussYAZhiIgcprlaCm6prJHGJO9spkr4tkKFNZPRevwp2jHzeVBZ390rmfkwst6aZaUqKeJ500zF6BJfXb'),
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forRoot(routes),
             _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
@@ -128,10 +125,7 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector
         _pricing_pricing_component__WEBPACK_IMPORTED_MODULE_7__["PricingComponent"],
         _payment_payment_component__WEBPACK_IMPORTED_MODULE_8__["PaymentComponent"],
         _limits_limits_component__WEBPACK_IMPORTED_MODULE_9__["LimitsComponent"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
-        _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"], 
-        // NgxStripeModule
-        //   .forRoot('pk_test_51GwZIhASKhSlqpJrkussYAZhiIgcprlaCm6prJHGJO9spkr4tkKFNZPRevwp2jHzeVBZ390rmfkwst6aZaUqKeJ500zF6BJfXb'),
-        _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
+        _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"],
         _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
         _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_10__["BrowserAnimationsModule"],
@@ -151,11 +145,7 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector
                 imports: [
                     _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                     _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
-                    _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forRoot(routes, {
-                    // useHash: true
-                    }),
-                    // NgxStripeModule
-                    //   .forRoot('pk_test_51GwZIhASKhSlqpJrkussYAZhiIgcprlaCm6prJHGJO9spkr4tkKFNZPRevwp2jHzeVBZ390rmfkwst6aZaUqKeJ500zF6BJfXb'),
+                    _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forRoot(routes),
                     _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
                     _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"],
                     _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
@@ -194,16 +184,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class LimitsComponent {
-    constructor(route, cdr, http) {
+    constructor(route, http) {
         this.route = route;
-        this.cdr = cdr;
         this.http = http;
-        this.symbolsLim = 100000;
-        this.sentencesLim = 1323;
     }
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
-            console.log(JSON.stringify(params));
             if (params['code']) {
                 this.http.post('/api/figma-limits', { code: params['code'] })
                     .subscribe((v) => {
@@ -222,15 +208,19 @@ class LimitsComponent {
         // registerElements([card], 'example1');
     }
     get limitsAvailable() {
-        // return !this.figmatid;
-        return false;
+        return !this.figmatid;
+        // return false;
     }
-    pay() {
+    pay(a) {
         console.log(`+++`);
     }
+    // @HostListener('card-element:change', ['$event'])
+    fun() {
+        console.log(`+++ fun`);
+    }
 }
-LimitsComponent.ɵfac = function LimitsComponent_Factory(t) { return new (t || LimitsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"])); };
-LimitsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: LimitsComponent, selectors: [["app-limits"]], decls: 37, vars: 5, consts: [["routerLink", "/", "routerLinkActive", "active"], [1, "container"], [1, "row", "justify-content-center", "m-2"], [1, "row", "m-2"], [1, "col", "text-right"], [1, "col"], [1, "row", "justify-content-center", "m-2", 3, "hidden"], ["name", "amount", "aria-label", "Payment amount", 3, "ngModel", "ngModelChange"], ["value", "p1"], ["value", "p3"], [1, "payment-form-container", 3, "hidden"], ["id", "payment-form"], ["id", "card-element"], ["id", "submit", 3, "onclick"], ["id", "spinner", 1, "spinner", "hidden"], ["id", "button-text"], ["id", "card-errors", "role", "alert"], [1, "result-message", "hidden"], ["href", "", "target", "_blank"]], template: function LimitsComponent_Template(rf, ctx) { if (rf & 1) {
+LimitsComponent.ɵfac = function LimitsComponent_Factory(t) { return new (t || LimitsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"])); };
+LimitsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: LimitsComponent, selectors: [["app-limits"]], decls: 37, vars: 5, consts: [["routerLink", "/", "routerLinkActive", "active"], [1, "container"], [1, "row", "justify-content-center", "m-2"], [1, "row", "m-2"], [1, "col", "text-right"], [1, "col"], [1, "row", "justify-content-center", "m-4", 3, "hidden"], ["name", "amount", "aria-label", "Payment amount", 3, "ngModel", "ngModelChange"], ["value", "p1"], ["value", "p3"], [1, "payment-form-container", 3, "hidden"], ["id", "payment-form"], ["id", "card-element"], ["id", "submit", "disabled", ""], ["id", "spinner", 1, "spinner", "hidden"], ["id", "button-text"], ["id", "card-errors", "role", "alert"], [1, "result-message", "hidden"], ["href", "", "target", "_blank"]], template: function LimitsComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "a", 0);
@@ -276,10 +266,9 @@ LimitsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCo
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](25, "form", 11);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](26, "div", 12);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](27, "button", 13);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("onclick", function LimitsComponent_Template_button_onclick_27_listener() { return ctx.pay(); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](28, "div", 14);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](29, "span", 15);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](30, "Confirm payment");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](30, "Confirm payment - temporally disable");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](31, "p", 16);
@@ -311,7 +300,7 @@ LimitsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCo
                 templateUrl: './limits.component.html',
                 styleUrls: ['./limits.component.scss'],
             }]
-    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"] }, { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }]; }, null); })();
+    }], function () { return [{ type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"] }, { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }]; }, null); })();
 
 
 /***/ }),
